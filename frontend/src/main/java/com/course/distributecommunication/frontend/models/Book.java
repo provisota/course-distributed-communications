@@ -1,4 +1,4 @@
-package com.course.distributecommunication.books.models;
+package com.course.distributecommunication.frontend.models;
 
 import lombok.*;
 
