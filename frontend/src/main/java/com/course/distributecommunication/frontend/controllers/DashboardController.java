@@ -1,7 +1,8 @@
 package com.course.distributecommunication.frontend.controllers;
 
 import com.course.distributecommunication.frontend.models.Aggregate;
-import com.course.distributecommunication.frontend.services.DashboardService;
+import com.course.distributecommunication.frontend.services.DashboardGrpcService;
+import com.course.distributecommunication.frontend.services.DashboardRestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -15,14 +16,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DashboardController {
     private static final Logger logger = LoggerFactory.getLogger(DashboardController.class);
 
-    final DashboardService dashboardService;
+    final DashboardRestService dashboardRestService;
+    final DashboardGrpcService dashboardGrpcService;
 
-    public DashboardController(DashboardService dashboardService) {
-        this.dashboardService = dashboardService;
+    public DashboardController(
+            DashboardRestService dashboardRestService,
+            DashboardGrpcService dashboardGrpcService
+    ) {
+        this.dashboardRestService = dashboardRestService;
+        this.dashboardGrpcService = dashboardGrpcService;
     }
 
-    @GetMapping
-    public ResponseEntity<Aggregate> getAll() {
-        return new ResponseEntity<>(dashboardService.getAggregate(), HttpStatus.OK);
+    @GetMapping("/rest")
+    public ResponseEntity<Aggregate> getAllRest() {
+        return new ResponseEntity<>(dashboardRestService.getAggregate(), HttpStatus.OK);
+    }
+
+    @GetMapping("/grpc")
+    public ResponseEntity<Aggregate> getAllGrpc() {
+        return new ResponseEntity<>(dashboardGrpcService.getAggregate(), HttpStatus.OK);
     }
 }

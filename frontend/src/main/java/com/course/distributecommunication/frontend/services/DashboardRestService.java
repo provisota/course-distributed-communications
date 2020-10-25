@@ -16,14 +16,14 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Component
-public class DashboardService {
-    private static final Logger logger = LoggerFactory.getLogger(DashboardService.class);
+public class DashboardRestService {
+    private static final Logger logger = LoggerFactory.getLogger(DashboardRestService.class);
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
     private final String authorsUrl = "http://authors:8080/api/v1/authors";
     private final String booksUrl = "http://books:8080/api/v1/books";
 
-    public DashboardService(
+    public DashboardRestService(
             ObjectMapper objectMapper,
             RestTemplate restTemplate
     ) {
