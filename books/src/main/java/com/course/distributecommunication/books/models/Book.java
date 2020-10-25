@@ -1,5 +1,6 @@
 package com.course.distributecommunication.books.models;
 
+import com.course.distributecommunication.books.grpc.BookDto;
 import lombok.*;
 
 @Getter
@@ -14,4 +15,13 @@ public class Book {
     private int pages;
     @With
     private int authorId;
+
+    public BookDto asBookDto() {
+        return BookDto.newBuilder()
+                .setId(id)
+                .setTitle(title)
+                .setPages(pages)
+                .setAuthorId(authorId)
+                .build();
+    }
 }

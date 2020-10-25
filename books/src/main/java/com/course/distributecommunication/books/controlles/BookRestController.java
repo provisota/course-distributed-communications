@@ -14,12 +14,12 @@ import java.util.Collection;
 
 @Controller
 @RequestMapping("books")
-public class BookController {
-    private static final Logger logger = LoggerFactory.getLogger(BookController.class);
+public class BookRestController {
+    private static final Logger logger = LoggerFactory.getLogger(BookRestController.class);
 
     final BookService bookService;
 
-    public BookController(BookService bookService) {
+    public BookRestController(BookService bookService) {
         this.bookService = bookService;
     }
 

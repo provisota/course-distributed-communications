@@ -14,12 +14,12 @@ import java.util.Collection;
 
 @Controller
 @RequestMapping("authors")
-public class AuthorController {
-    private static final Logger logger = LoggerFactory.getLogger(AuthorController.class);
+public class AuthorRestController {
+    private static final Logger logger = LoggerFactory.getLogger(AuthorRestController.class);
 
     final AuthorService authorService;
 
-    public AuthorController(AuthorService authorService) {
+    public AuthorRestController(AuthorService authorService) {
         this.authorService = authorService;
     }
 
