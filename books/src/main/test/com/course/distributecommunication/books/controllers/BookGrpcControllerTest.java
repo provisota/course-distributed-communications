@@ -1,4 +1,4 @@
-package com.course.distributecommunication.books.controlles;
+package com.course.distributecommunication.books.controllers;
 
 import com.course.distributecommunication.books.grpc.BooksServiceGrpc;
 import com.course.distributecommunication.books.grpc.GetAllBooksRequest;

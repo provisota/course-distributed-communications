@@ -1,4 +1,4 @@
-package com.course.distributecommunication.authors.controlles;
+package com.course.distributecommunication.authors.controllers;
 
 import com.course.distributecommunication.authors.grpc.AuthorDto;
 import com.course.distributecommunication.authors.grpc.AuthorsServiceGrpc;

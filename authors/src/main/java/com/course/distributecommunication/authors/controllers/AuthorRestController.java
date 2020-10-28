@@ -1,4 +1,4 @@
-package com.course.distributecommunication.authors.controlles;
+package com.course.distributecommunication.authors.controllers;
 
 import com.course.distributecommunication.authors.models.Author;
 import com.course.distributecommunication.authors.services.AuthorService;
