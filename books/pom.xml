@@ -18,11 +18,16 @@
     </properties>
 
     <dependencies>
-        <!-- Grpc -->
-        <!-- Generated protobuf dependency -->
+        <!--Grpc generated protobuf dependency -->
         <dependency>
             <groupId>com.course.distributecommunication</groupId>
             <artifactId>course-distributecommunication-proto</artifactId>
+            <version>0.0.2</version>
+        </dependency>
+        <!-- RabbitMQ shared Messages-->
+        <dependency>
+            <groupId>com.course.distributecommunication</groupId>
+            <artifactId>course-distributecommunication-rabbit</artifactId>
             <version>0.0.2</version>
         </dependency>
     </dependencies>

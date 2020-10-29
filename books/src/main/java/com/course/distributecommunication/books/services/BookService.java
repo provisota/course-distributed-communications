@@ -3,17 +3,22 @@ package com.course.distributecommunication.books.services;
 import com.course.distributecommunication.books.models.Book;
 import com.course.distributecommunication.books.models.BookAndAuthorDto;
 import lombok.val;
-import org.springframework.stereotype.Component;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 
-@Component
+import static com.course.distributecommunication.rabbit.Constants.BOOK_AND_AUTHOR_QUEUE;
+
+@Service
 public class BookService {
     private final HashMap<Integer, Book> books;
+    private final RabbitTemplate rabbitTemplate;
 
-    public BookService() {
+    public BookService(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
         books = new HashMap<>();
         books.put(1, new Book(1).withTitle("Semiosis: A Novel - v2").withPages(326).withAuthorId(1));
         books.put(2, new Book(2).withTitle("The Loosening Skin - v2").withPages(132).withAuthorId(1));
@@ -46,5 +51,9 @@ public class BookService {
         books.put(newBook.getId(), newBook);
 
         return newBook;
+    }
+
+    public void sendBookAndAuthorMessage(BookAndAuthorDto dto) {
+        rabbitTemplate.convertAndSend(BOOK_AND_AUTHOR_QUEUE, dto.toMessage());
     }
 }

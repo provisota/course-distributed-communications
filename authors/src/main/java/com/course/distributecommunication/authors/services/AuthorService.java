@@ -1,12 +1,12 @@
 package com.course.distributecommunication.authors.services;
 
+import com.course.distributecommunication.authors.models.Author;
+import org.springframework.stereotype.Service;
+
 import java.util.Collection;
 import java.util.HashMap;
 
-import com.course.distributecommunication.authors.models.Author;
-import org.springframework.stereotype.Component;
-
-@Component
+@Service
 public class AuthorService
 {
     private final HashMap<Integer, Author> authors;

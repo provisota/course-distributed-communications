@@ -2,6 +2,7 @@ package com.course.distributecommunication.authors.controllers;
 
 import com.course.distributecommunication.authors.models.Author;
 import com.course.distributecommunication.authors.services.AuthorService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -12,16 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("authors")
 public class AuthorRestController {
     private static final Logger logger = LoggerFactory.getLogger(AuthorRestController.class);
 
-    final AuthorService authorService;
-
-    public AuthorRestController(AuthorService authorService) {
-        this.authorService = authorService;
-    }
+    private final AuthorService authorService;
 
     @GetMapping
     public ResponseEntity<Collection<Author>> getAll() {

@@ -1,5 +1,6 @@
 package com.course.distributecommunication.books.models;
 
+import com.course.distributecommunication.rabbit.BookAndAuthorMessage;
 import lombok.*;
 
 /**
@@ -16,4 +17,14 @@ public class BookAndAuthorDto {
     private int authorId;
     private String firstName;
     private String lastName;
+
+    public BookAndAuthorMessage toMessage() {
+        return new BookAndAuthorMessage(
+                title,
+                pages,
+                authorId,
+                firstName,
+                lastName
+        );
+    }
 }

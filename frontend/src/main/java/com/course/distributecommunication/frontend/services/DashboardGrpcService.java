@@ -1,9 +1,9 @@
 package com.course.distributecommunication.frontend.services;
 
-import com.course.distributecommunication.authors.grpc.AuthorsServiceGrpc;
-import com.course.distributecommunication.authors.grpc.GetAllAuthorsRequest;
-import com.course.distributecommunication.books.grpc.BooksServiceGrpc;
-import com.course.distributecommunication.books.grpc.GetAllBooksRequest;
+import com.course.distributecommunication.grpc.authors.AuthorsServiceGrpc;
+import com.course.distributecommunication.grpc.authors.GetAllAuthorsRequest;
+import com.course.distributecommunication.grpc.books.BooksServiceGrpc;
+import com.course.distributecommunication.grpc.books.GetAllBooksRequest;
 import com.course.distributecommunication.frontend.models.Aggregate;
 import com.course.distributecommunication.frontend.models.Author;
 import com.course.distributecommunication.frontend.models.Book;
@@ -11,12 +11,12 @@ import lombok.val;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class DashboardGrpcService {
     private static final Logger logger = LoggerFactory.getLogger(DashboardGrpcService.class);
 

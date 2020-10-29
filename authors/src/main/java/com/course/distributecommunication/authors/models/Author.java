@@ -1,6 +1,6 @@
 package com.course.distributecommunication.authors.models;
 
-import com.course.distributecommunication.authors.grpc.AuthorDto;
+import com.course.distributecommunication.grpc.authors.AuthorDto;
 import lombok.*;
 
 @Getter
