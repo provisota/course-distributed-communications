@@ -1,0 +1,21 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.course.distributecommunication.books.grpc;
+option java_outer_classname = "BookProto";
+
+message BookDto {
+  int32 id = 1;
+  string title = 2;
+  int32 pages = 3;
+  int32 authorId = 4;
+}
+
+message GetAllBooksRequest {}
+
+message GetAllBooksResponse {
+  repeated BookDto books = 1;
+}
+
+service BooksService {
+  rpc getAll(GetAllBooksRequest) returns (GetAllBooksResponse);
+}

@@ -1,0 +1,20 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.course.distributecommunication.authors.grpc;
+option java_outer_classname = "AuthorProto";
+
+message AuthorDto {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+}
+
+message GetAllAuthorsRequest {}
+
+message GetAllAuthorsResponse {
+  repeated AuthorDto authors = 1;
+}
+
+service AuthorsService {
+  rpc getAll(GetAllAuthorsRequest) returns (GetAllAuthorsResponse);
+}

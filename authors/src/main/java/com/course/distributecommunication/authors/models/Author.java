@@ -1,5 +1,6 @@
 package com.course.distributecommunication.authors.models;
 
+import com.course.distributecommunication.authors.grpc.AuthorDto;
 import lombok.*;
 
 @Getter
@@ -12,4 +13,12 @@ public class Author {
     private String firstName;
     @With
     private String lastName;
+
+    public AuthorDto asAuthorDto() {
+        return AuthorDto.newBuilder()
+                .setId(id)
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .build();
+    }
 }
