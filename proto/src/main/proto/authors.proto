@@ -15,6 +15,15 @@ message GetAllAuthorsResponse {
   repeated AuthorDto authors = 1;
 }
 
+message AddAuthorIfNotExistRequest {
+  AuthorDto author = 1;
+}
+
+message AddAuthorIfNotExistResponse {
+  bool authorHasAdded = 1;
+}
+
 service AuthorsService {
   rpc getAll(GetAllAuthorsRequest) returns (GetAllAuthorsResponse);
+  rpc addAuthorIfNotExist(AddAuthorIfNotExistRequest) returns (AddAuthorIfNotExistResponse);
 }

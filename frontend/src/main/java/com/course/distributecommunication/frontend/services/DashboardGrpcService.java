@@ -1,12 +1,15 @@
 package com.course.distributecommunication.frontend.services;
 
+import com.course.distributecommunication.frontend.models.Aggregate;
+import com.course.distributecommunication.frontend.models.Author;
+import com.course.distributecommunication.frontend.models.Book;
+import com.course.distributecommunication.grpc.authors.AddAuthorIfNotExistRequest;
+import com.course.distributecommunication.grpc.authors.AuthorDto;
 import com.course.distributecommunication.grpc.authors.AuthorsServiceGrpc;
 import com.course.distributecommunication.grpc.authors.GetAllAuthorsRequest;
 import com.course.distributecommunication.grpc.books.BooksServiceGrpc;
 import com.course.distributecommunication.grpc.books.GetAllBooksRequest;
-import com.course.distributecommunication.frontend.models.Aggregate;
-import com.course.distributecommunication.frontend.models.Author;
-import com.course.distributecommunication.frontend.models.Book;
+import com.course.distributecommunication.rabbit.BookAndAuthorMessage;
 import lombok.val;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.slf4j.Logger;
@@ -30,6 +33,30 @@ public class DashboardGrpcService {
         val authors = getAuthors();
         val books = getBooks();
         return new Aggregate(authors, books);
+    }
+
+    public void addAuthorIfNotExist(BookAndAuthorMessage message) {
+        val authorDto = AuthorDto.newBuilder()
+                .setId(message.getAuthorId())
+                .setFirstName(message.getFirstName())
+                .setLastName(message.getLastName())
+                .build();
+
+        val authorHasAdded = authorsClient.addAuthorIfNotExist(
+                AddAuthorIfNotExistRequest.newBuilder()
+                        .setAuthor(authorDto)
+                        .build()
+        ).getAuthorHasAdded();
+
+        if (authorHasAdded) {
+            logger.info(
+                    "New Author with id = {} added to storage.", message.getAuthorId()
+            );
+        } else {
+            logger.info(
+                    "Author with id = {} already exist.", message.getAuthorId()
+            );
+        }
     }
 
     private Collection<Book> getBooks() {
