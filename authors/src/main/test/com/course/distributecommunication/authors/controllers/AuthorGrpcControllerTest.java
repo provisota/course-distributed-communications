@@ -1,9 +1,9 @@
 package com.course.distributecommunication.authors.controllers;
 
-import com.course.distributecommunication.authors.grpc.AuthorDto;
-import com.course.distributecommunication.authors.grpc.AuthorsServiceGrpc;
-import com.course.distributecommunication.authors.grpc.GetAllAuthorsRequest;
-import com.course.distributecommunication.authors.grpc.GetAllAuthorsResponse;
+import com.course.distributecommunication.grpc.authors.AuthorDto;
+import com.course.distributecommunication.grpc.authors.AuthorsServiceGrpc;
+import com.course.distributecommunication.grpc.authors.GetAllAuthorsRequest;
+import com.course.distributecommunication.grpc.authors.GetAllAuthorsResponse;
 import com.course.distributecommunication.authors.services.AuthorService;
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.inprocess.InProcessServerBuilder;

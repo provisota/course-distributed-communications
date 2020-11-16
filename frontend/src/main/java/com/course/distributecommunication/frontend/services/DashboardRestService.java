@@ -5,31 +5,25 @@ import com.course.distributecommunication.frontend.models.Author;
 import com.course.distributecommunication.frontend.models.Book;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
-@Component
+@RequiredArgsConstructor
+@Service
 public class DashboardRestService {
     private static final Logger logger = LoggerFactory.getLogger(DashboardRestService.class);
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
-    private final String authorsUrl = "http://authors:8080/api/v1/authors";
-    private final String booksUrl = "http://books:8080/api/v1/books";
-
-    public DashboardRestService(
-            ObjectMapper objectMapper,
-            RestTemplate restTemplate
-    ) {
-        this.objectMapper = objectMapper;
-        this.restTemplate = restTemplate;
-    }
+    private final static String AUTHORS_URL = "http://authors:8080/api/v1/authors";
+    private final static String BOOKS_URL = "http://books:8080/api/v1/books";
 
     public Aggregate getAggregate() {
         val authors = getAuthors();
@@ -38,7 +32,7 @@ public class DashboardRestService {
     }
 
     private Collection<Book> getBooks() {
-        val booksJson = restTemplate.getForEntity(booksUrl, String.class);
+        val booksJson = restTemplate.getForEntity(BOOKS_URL, String.class);
 
         try {
             return objectMapper.readValue(
@@ -54,7 +48,7 @@ public class DashboardRestService {
     }
 
     private Collection<Author> getAuthors() {
-        val authorsResponse = restTemplate.getForEntity(authorsUrl, String.class);
+        val authorsResponse = restTemplate.getForEntity(AUTHORS_URL, String.class);
 
         try {
             return objectMapper.readValue(

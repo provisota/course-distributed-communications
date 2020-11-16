@@ -1,10 +1,10 @@
 package com.course.distributecommunication.books.controllers;
 
-import com.course.distributecommunication.books.grpc.BooksServiceGrpc;
-import com.course.distributecommunication.books.grpc.GetAllBooksRequest;
-import com.course.distributecommunication.books.grpc.GetAllBooksResponse;
 import com.course.distributecommunication.books.models.Book;
 import com.course.distributecommunication.books.services.BookService;
+import com.course.distributecommunication.grpc.books.BooksServiceGrpc;
+import com.course.distributecommunication.grpc.books.GetAllBooksRequest;
+import com.course.distributecommunication.grpc.books.GetAllBooksResponse;
 import io.grpc.inprocess.InProcessChannelBuilder;
 import io.grpc.inprocess.InProcessServerBuilder;
 import io.grpc.testing.GrpcCleanupRule;
@@ -12,7 +12,9 @@ import lombok.val;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.stream.Collectors;
 
@@ -21,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Ilya Alterovych
  */
-@RunWith(JUnit4.class)
+@RunWith(MockitoJUnitRunner.class)
 public class BookGrpcControllerTest {
     /**
      * This rule manages automatic graceful shutdown for the registered servers and channels at the
@@ -29,6 +31,9 @@ public class BookGrpcControllerTest {
      */
     @Rule
     public final GrpcCleanupRule grpcCleanup = new GrpcCleanupRule();
+
+    @Mock
+    private RabbitTemplate rabbitTemplate;
 
     /**
      * To test the server, make calls with a real stub using the in-process channel, and verify
@@ -40,7 +45,7 @@ public class BookGrpcControllerTest {
         String serverName = InProcessServerBuilder.generateName();
 
         // Create a server, add service, start, and register for automatic graceful shutdown.
-        val bookService = new BookService();
+        val bookService = new BookService(rabbitTemplate);
 
         grpcCleanup.register(InProcessServerBuilder
                 .forName(serverName).directExecutor().addService(

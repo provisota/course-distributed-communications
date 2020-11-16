@@ -3,6 +3,8 @@ package com.course.distributecommunication.books.controllers;
 import com.course.distributecommunication.books.models.Book;
 import com.course.distributecommunication.books.models.BookAndAuthorDto;
 import com.course.distributecommunication.books.services.BookService;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,15 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Collection;
 
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("books")
 public class BookRestController {
     private static final Logger logger = LoggerFactory.getLogger(BookRestController.class);
 
-    final BookService bookService;
-
-    public BookRestController(BookService bookService) {
-        this.bookService = bookService;
-    }
+    private final BookService bookService;
 
     @GetMapping
     public ResponseEntity<Collection<Book>> getAll() {
@@ -34,6 +33,10 @@ public class BookRestController {
     @PutMapping
     public ResponseEntity<Book> addBook(@RequestBody BookAndAuthorDto dto) {
         logger.info("Adding {}", dto);
-        return new ResponseEntity<>(bookService.add(dto), HttpStatus.CREATED);
+
+        val newBook = bookService.add(dto);
+        bookService.sendBookAndAuthorMessage(dto);
+
+        return new ResponseEntity<>(newBook, HttpStatus.CREATED);
     }
 }

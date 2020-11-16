@@ -1,6 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-package com.course.distributecommunication.authors.grpc;
+package com.course.distributecommunication.grpc.authors;
 option java_outer_classname = "AuthorProto";
 
 message AuthorDto {
@@ -15,6 +15,15 @@ message GetAllAuthorsResponse {
   repeated AuthorDto authors = 1;
 }
 
+message AddAuthorIfNotExistRequest {
+  AuthorDto author = 1;
+}
+
+message AddAuthorIfNotExistResponse {
+  bool authorHasAdded = 1;
+}
+
 service AuthorsService {
   rpc getAll(GetAllAuthorsRequest) returns (GetAllAuthorsResponse);
+  rpc addAuthorIfNotExist(AddAuthorIfNotExistRequest) returns (AddAuthorIfNotExistResponse);
 }
